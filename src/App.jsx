@@ -1,20 +1,10 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import ChatRoom from "./components/ChatRoom";
 import SignIn from "./components/SignIn";
-import firebase from "./firebase";
+import { useAuth } from "./contexts/auth.context";
 
 const App = () => {
-  // fix it ---->
-  const [user, loading, error] = useAuthState(firebase.auth());
-
-  if (loading) {
-    return <div>Loading ...</div>;
-  }
-
-  if (!loading && error) {
-    return <div>{error}</div>;
-  }
+  const { user } = useAuth();
 
   return <>{user ? <ChatRoom /> : <SignIn />}</>;
 };
